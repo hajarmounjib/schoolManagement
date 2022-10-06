@@ -4,16 +4,15 @@ import { FaSortDown } from "react-icons/fa";
 import { Link } from "react-router-dom"
 
 
-
 function Banner(props) {
     const [dropdown, setDropdownActive] = useState(false);
-    var dropdownData = [
-        {title:"DashBoard"},
-        {title:"Information élève", tittleDropdownContainer:["Infos Famille ", "Infos élève"]},
-    {title:"Atelier Administratif", tittleDropdownContainer:["Trombinoscope", "Liste des élèves"]},
-    {title:"Atelier Encaissement", tittleDropdownContainer:["Gestion des Encaissements", "Devis","Facturation","Tableau de Bord CA"]},
-
-]
+    const dropdownData = [
+        { dashboard: "" },
+        { "Information élève": ["Infos Famille ", "Infos élève"] },
+        { "Atelier Administratif": ["Trombinoscope", "Liste des élèves"] },
+        { "Atelier Encaissement": ["Gestion des Encaissements", "Devis", "Facturation", "Tableau de Bord CA"] },
+    ]
+   
 
     var showDropdown = () => {
         setDropdownActive(!dropdown)
@@ -21,30 +20,36 @@ function Banner(props) {
     }
     return (
         <div className="sidenav">
-            { dropdownData.map((e,i)=>{
 
-                return(
+            {dropdownData.map((name, j) => {
+
+                console.log('list',Object.keys(name))
+
+
+                return (
                     <>
-                         <Link to="" onClick={() => showDropdown()} className="dropdown-btn">{e.title}
-                    <FaSortDown className="fa fa-caret-down"></FaSortDown>
-                </Link>
-                      <div className={dropdown===true?"dropdown-container-active":"dropdown-container"}>
-                      <a href="#">Link 1</a>
+                        <Link to="" key={j} onClick={() => showDropdown()} className="dropdown-btn">{Object.keys(name)}
+                            <FaSortDown className="fa fa-caret-down"></FaSortDown>
+                        </Link>
+                        {Object.values(name).map((list, key) => {
+                            return (
+                                <>
+                             {/*    {
+                                    list.map((listDropdown,j)=>{
+                                    return (<a href="#">{listDropdown} </a>)
+                                    })
+                                } */}
+                                <a href="#">{list} </a>
+                                </>
 
-                  </div>
+                            )
+                        })} 
+
                     </>
-               
                 )
             })}
-            <Link to="" onClick={() => showDropdown()} className="dropdown-btn">Dropdown
-                <FaSortDown className="fa fa-caret-down"></FaSortDown>
-            </Link>
-            <div className={dropdown===true?"dropdown-container-active":"dropdown-container"}>
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
-            <a href="#contact">Search</a>
+
+
         </div>
 
 
